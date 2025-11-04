@@ -1,11 +1,85 @@
-# React + TypeScript + Vite
+# React Ticket Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack task management application with a React frontend and Node.js GraphQL backend.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a monorepo using npm workspaces:
+
+```
+react-ticket-board/
+├── apps/
+│   ├── frontend/       # React + Vite + TypeScript frontend
+│   └── backend/        # Node.js + Fastify + GraphQL backend
+└── package.json        # Root workspace configuration
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm
+
+### Installation
+
+Install all dependencies for both frontend and backend:
+
+```bash
+npm install
+```
+
+### Development
+
+Run both frontend and backend concurrently:
+
+```bash
+npm run dev
+```
+
+Or run them separately:
+
+```bash
+# Frontend only (runs on http://localhost:5173)
+npm run dev:frontend
+
+# Backend only (runs on http://localhost:4000)
+npm run dev:backend
+```
+
+### Backend Setup
+
+The backend uses environment variables. Copy the example file:
+
+```bash
+cp apps/backend/.env.example apps/backend/.env
+```
+
+### Available Scripts
+
+- `npm run dev` - Run both frontend and backend
+- `npm run dev:frontend` - Run frontend only
+- `npm run dev:backend` - Run backend only
+- `npm run build` - Build both apps
+- `npm run build:frontend` - Build frontend only
+- `npm run build:backend` - Build backend only
+- `npm run lint` - Lint all workspaces
+
+## Tech Stack
+
+### Frontend
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Aria Components
+- DnD Kit (drag and drop)
+
+### Backend
+- Node.js
+- Fastify
+- Apollo Server
+- GraphQL
+- TypeScript
 
 ## React Compiler
 
