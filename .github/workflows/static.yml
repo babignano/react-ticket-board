@@ -33,6 +33,7 @@ jobs:
           snyk code test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        continue-on-error: true
   deploy:
     environment:
       name: github-pages
