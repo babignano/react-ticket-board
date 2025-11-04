@@ -1,0 +1,3 @@
+# Snyk configuration file
+# This explicitly tells Snyk this is an npm project
+packageManager: npm
