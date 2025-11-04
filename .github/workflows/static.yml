@@ -28,7 +28,9 @@ jobs:
       - uses: actions/checkout@master
       - name: Run Snyk analysis
         uses: snyk/actions/setup@master
-      - run: snyk test --all-projects
+      - run: |
+          snyk test --all-projects
+          snyk code test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   deploy:
