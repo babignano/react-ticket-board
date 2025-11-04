@@ -26,12 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities v2
-        uses: snyk/actions/maven@master
+      - name: Run Snyk analysis
+        uses: snyk/actions/setup@master
+      - run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --all-projects
   deploy:
     environment:
       name: github-pages
