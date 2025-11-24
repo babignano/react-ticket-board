@@ -21,11 +21,7 @@ await app.register(cors, {
   origin: true, // Allow all origins in development
 });
 
-await app.register(fastifyApollo(server), {
-  context: async (request) => ({
-    token: request.headers.authorization,
-  }),
-});
+await app.register(fastifyApollo(server));
 
 const PORT = Number(process.env.PORT) || 4000;
 

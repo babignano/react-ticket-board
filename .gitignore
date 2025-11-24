@@ -34,3 +34,9 @@ dist-ssr
 # Backend specific
 apps/backend/dist
 apps/backend/.env
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log
