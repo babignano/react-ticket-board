@@ -1,7 +1,8 @@
-import { ApolloClient, InMemoryCache, createHttpLink, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
 import { setContext } from '@apollo/client/link/context';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useMemo, ReactNode } from 'react';
+import { useMemo, type ReactNode } from 'react';
 
 const httpLink = createHttpLink({
   uri: import.meta.env.VITE_GRAPHQL_URL,
