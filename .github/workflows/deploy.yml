@@ -32,10 +32,8 @@ jobs:
 
       - name: Generate tfvars
         run: |
-          cat > terraform/terraform.tfvars << EOF
-          auth0_domain   = "${{ secrets.AUTH0_DOMAIN }}"
-          auth0_audience = "${{ secrets.AUTH0_AUDIENCE }}"
-          EOF
+          echo 'auth0_domain   = "${{ secrets.AUTH0_DOMAIN }}"' > terraform/terraform.tfvars
+          echo 'auth0_audience = "${{ secrets.AUTH0_AUDIENCE }}"' >> terraform/terraform.tfvars
 
       - name: Terraform Init
         working-directory: terraform
