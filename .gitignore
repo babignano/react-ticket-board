@@ -40,3 +40,4 @@ apps/backend/.env
 *.tfstate.*
 .terraform/
 crash.log
+*.tfvars

@@ -15,12 +15,12 @@ terraform {
     }
   }
 
-  # Uncomment this to store state in S3 (recommended for teams)
-  # backend "s3" {
-  #   bucket = "your-terraform-state-bucket"
-  #   key    = "ticket-board/terraform.tfstate"
-  #   region = "us-east-1"
-  # }
+  backend "s3" {
+    bucket  = "ticket-board-terraform-state-ap"
+    key     = "terraform.tfstate"
+    region  = "ap-southeast-2"
+    encrypt = true
+  }
 }
 
 # Configure the AWS Provider

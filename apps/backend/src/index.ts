@@ -4,12 +4,13 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import { typeDefs } from './schema/typeDefs.js';
 import { resolvers } from './schema/resolvers.js';
+import { getUser, Context } from './auth.js';
 
 const app = Fastify({
   logger: true,
 });
 
-const server = new ApolloServer({
+const server = new ApolloServer<Context>({
   typeDefs,
   resolvers,
   plugins: [fastifyApolloDrainPlugin(app)],
@@ -21,7 +22,12 @@ await app.register(cors, {
   origin: true, // Allow all origins in development
 });
 
-await app.register(fastifyApollo(server));
+await app.register(fastifyApollo(server), {
+  context: async (request): Promise<Context> => {
+    const user = await getUser(request);
+    return { user };
+  },
+});
 
 const PORT = Number(process.env.PORT) || 4000;
 

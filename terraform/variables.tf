@@ -36,3 +36,14 @@ variable "backend_desired_count" {
   type        = number
   default     = 1
 }
+
+# Auth0 Configuration
+variable "auth0_domain" {
+  description = "Auth0 tenant domain"
+  type        = string
+}
+
+variable "auth0_audience" {
+  description = "Auth0 API audience/identifier"
+  type        = string
+}

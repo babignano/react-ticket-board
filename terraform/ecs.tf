@@ -108,6 +108,14 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "PORT"
           value = "4000"
+        },
+        {
+          name  = "AUTH0_DOMAIN"
+          value = var.auth0_domain
+        },
+        {
+          name  = "AUTH0_AUDIENCE"
+          value = var.auth0_audience
         }
       ]
 

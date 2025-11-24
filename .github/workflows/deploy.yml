@@ -12,8 +12,42 @@ env:
   ECS_SERVICE: ticket-board-backend-service
 
 jobs:
+  terraform:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Generate tfvars
+        run: |
+          cat > terraform/terraform.tfvars << EOF
+          auth0_domain   = "${{ secrets.AUTH0_DOMAIN }}"
+          auth0_audience = "${{ secrets.AUTH0_AUDIENCE }}"
+          EOF
+
+      - name: Terraform Init
+        working-directory: terraform
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: terraform
+        run: terraform apply -auto-approve
+
   deploy-frontend:
     name: Deploy Frontend
+    needs: terraform
     runs-on: ubuntu-latest
 
     steps:
@@ -33,6 +67,9 @@ jobs:
         run: npm run build:frontend
         env:
           VITE_GRAPHQL_URL: ${{ secrets.BACKEND_URL }}
+          VITE_AUTH0_DOMAIN: ${{ secrets.VITE_AUTH0_DOMAIN }}
+          VITE_AUTH0_CLIENT_ID: ${{ secrets.VITE_AUTH0_CLIENT_ID }}
+          VITE_AUTH0_AUDIENCE: ${{ secrets.VITE_AUTH0_AUDIENCE }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -52,6 +89,7 @@ jobs:
 
   deploy-backend:
     name: Deploy Backend
+    needs: terraform
     runs-on: ubuntu-latest
 
     steps:
